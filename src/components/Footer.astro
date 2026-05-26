@@ -1,5 +1,5 @@
 ---
-import { AUTHOR } from '../consts';
+import { AUTHOR } from "../consts";
 const year = new Date().getFullYear();
 ---
 
@@ -14,7 +14,14 @@ const year = new Date().getFullYear();
       <span>·</span>
       <a href={`mailto:${AUTHOR.email}`}>Email</a>
     </p>
-    <p class="meta">© {year} {AUTHOR.name}. Built with Astro. <a href="https://github.com/brianmulimuteti/brianmuteti-website" target="_blank" rel="noopener">View source</a>.</p>
+    <p class="meta">
+      © {year}
+      {AUTHOR.name}. Built with Astro. <a
+        href="https://github.com/brianmulimuteti/brianmuteti.com"
+        target="_blank"
+        rel="noopener">View source</a
+      >.
+    </p>
   </div>
 </footer>
 
@@ -37,11 +44,19 @@ const year = new Date().getFullYear();
     color: var(--text);
     text-decoration: none;
   }
-  .links a:hover { color: var(--accent); }
+  .links a:hover {
+    color: var(--accent);
+  }
   .links span {
     color: var(--rule);
     margin: 0 var(--space-2);
   }
-  .meta { color: var(--muted); font-size: 0.85rem; margin: 0; }
-  .meta a { color: var(--muted); }
+  .meta {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin: 0;
+  }
+  .meta a {
+    color: var(--muted);
+  }
 </style>
