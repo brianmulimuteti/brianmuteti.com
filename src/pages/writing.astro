@@ -1,0 +1,46 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { AUTHOR } from '../consts';
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title="Writing"
+      description="Articles on cloud, DevOps, and lessons from production incidents."
+    />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <p class="eyebrow">Writing</p>
+      <h1>Notes on cloud, DevOps, and what production actually teaches you.</h1>
+
+      <p class="lede">
+        I write occasionally about engineering — usually a lesson from a
+        production incident, or a design decision that turned out to
+        matter more than expected. Articles live on
+        <a href={AUTHOR.medium}>Medium</a> for now.
+      </p>
+
+      <hr class="rule" />
+
+      <p>
+        Visit my <a href={AUTHOR.medium}>Medium profile</a> for the full archive.
+      </p>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .lede {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--muted);
+    margin-bottom: var(--space-6);
+  }
+</style>

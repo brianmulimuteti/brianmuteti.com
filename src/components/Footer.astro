@@ -1,0 +1,47 @@
+---
+import { AUTHOR } from '../consts';
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <div class="inner">
+    <p class="links">
+      <a href={AUTHOR.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+      <span>·</span>
+      <a href={AUTHOR.github} target="_blank" rel="noopener">GitHub</a>
+      <span>·</span>
+      <a href={AUTHOR.medium} target="_blank" rel="noopener">Medium</a>
+      <span>·</span>
+      <a href={`mailto:${AUTHOR.email}`}>Email</a>
+    </p>
+    <p class="meta">© {year} {AUTHOR.name}. Built with Astro. <a href="https://github.com/brianmulimuteti/brianmuteti-website" target="_blank" rel="noopener">View source</a>.</p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: var(--space-8) var(--space-6);
+    font-size: 0.9rem;
+  }
+  .inner {
+    max-width: var(--max-width-wide);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+  .links a {
+    color: var(--text);
+    text-decoration: none;
+  }
+  .links a:hover { color: var(--accent); }
+  .links span {
+    color: var(--rule);
+    margin: 0 var(--space-2);
+  }
+  .meta { color: var(--muted); font-size: 0.85rem; margin: 0; }
+  .meta a { color: var(--muted); }
+</style>

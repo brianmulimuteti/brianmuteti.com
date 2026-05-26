@@ -1,0 +1,114 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+const work = (await getCollection('work', ({ data }) => data.published))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section class="intro">
+        <p class="eyebrow">Brian Muli Muteti</p>
+        <h1>Senior DevOps &amp; Site Reliability Engineer.</h1>
+        <p class="lede">
+          I build production systems that don't go down — and lead the
+          teams that keep them running.
+        </p>
+        <p class="bio">
+          Based in Nairobi. Currently at <strong>KCB Bank</strong>.
+          AWS Certified DevOps Professional and Solutions Architect Associate.
+        </p>
+      </section>
+
+      <hr class="rule" />
+
+      <section>
+        <p class="eyebrow">Selected work</p>
+        <ul class="work-list">
+          {
+            work.map((item) => (
+              <li>
+                <a href={`/work/${item.id}`}>
+                  <h2>{item.data.title}</h2>
+                  <p class="subtitle">{item.data.subtitle}</p>
+                  <p class="summary">{item.data.summary}</p>
+                  <p class="cta">Read case study →</p>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .intro h1 {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-6);
+  }
+  .lede {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    line-height: 1.4;
+    color: var(--text);
+    margin-bottom: var(--space-4);
+  }
+  .bio {
+    color: var(--muted);
+    font-size: 1rem;
+  }
+
+  .work-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .work-list li {
+    margin-bottom: var(--space-12);
+  }
+  .work-list a {
+    display: block;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .work-list h2 {
+    font-size: 1.4rem;
+    margin: 0 0 var(--space-2);
+    color: var(--text);
+    transition: color 0.15s ease;
+  }
+  .work-list a:hover h2 { color: var(--accent); }
+  .work-list .subtitle {
+    font-family: var(--serif);
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-bottom: var(--space-3);
+    line-height: 1.4;
+  }
+  .work-list .summary {
+    color: var(--text);
+    margin-bottom: var(--space-3);
+  }
+  .work-list .cta {
+    color: var(--accent);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  @media (max-width: 500px) {
+    .intro h1 { font-size: 1.9rem; }
+    .lede { font-size: 1.15rem; }
+  }
+</style>

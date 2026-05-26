@@ -1,0 +1,136 @@
+---
+import { Image } from 'astro:assets';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { AUTHOR } from '../consts';
+import brianPhoto from '../assets/images/brian.jpg';
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title="About"
+      description="Background, work, and how I think about engineering."
+    />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <p class="eyebrow">About</p>
+      <div class="header">
+        <div class="header-text">
+          <h1>How I think about engineering.</h1>
+          <p class="lede">
+            I build and operate production systems for organisations where
+            reliability is non-negotiable — banks, healthcare AI platforms,
+            energy. My work sits where deep technical engineering meets the
+            outcomes it enables: uptime, regulatory confidence, customer trust.
+          </p>
+        </div>
+        <div class="header-photo">
+          <Image
+            src={brianPhoto}
+            alt="Brian Muli Muteti"
+            width={220}
+            height={220}
+            loading="eager"
+          />
+        </div>
+      </div>
+
+      <h2>Current</h2>
+      <p>
+        I am currently at <strong>KCB Bank</strong> in Nairobi, working on
+        DevOps and Site Reliability Engineering across core banking
+        platforms.
+      </p>
+
+      <h2>Background</h2>
+      <p>
+        Before KCB I led Site Reliability Engineering for Africa at
+        <strong>Qure.ai</strong>, an AI-driven healthcare diagnostics platform with
+        multi-country deployments. Before that I was a DevOps and SRE
+        engineer at a Tier-1 East African bank, where I built much of
+        the work documented in <a href="/work">case studies</a>.
+      </p>
+      <p>
+        I hold a BSc in Electrical and Electronics Engineering from the
+        Technical University of Mombasa, and I am a registered Graduate
+        Engineer with the Engineering Board of Kenya.
+      </p>
+
+      <h2>How I work</h2>
+      <p>
+        I treat reliability as a business outcome, not a technical
+        metric. The systems I build are observable, fault-tolerant,
+        and designed for the engineers who operate them — not just the
+        ones who built them. I lead with documentation, runbooks, and
+        post-incident learning. I mentor.
+      </p>
+      <p>
+        Outside of full-time engineering, I serve as Head of Operations
+        for the Association of Energy Professionals in Eastern Africa.
+      </p>
+
+      <h2>Certifications</h2>
+      <ul>
+        <li>AWS Certified DevOps Engineer — Professional (DOP-C02)</li>
+        <li>AWS Certified Solutions Architect — Associate (SAA-C03)</li>
+        <li>
+          AWS Cloud Quest badges: Generative AI Architect, Solutions
+          Architect, Cloud Practitioner, Amazon Connect Fundamentals
+        </li>
+        <li>Google Data Analytics Professional Certificate</li>
+        <li>Google Project Management Professional Certificate</li>
+      </ul>
+
+      <h2>Get in touch</h2>
+      <p>
+        The best way to reach me is by <a href={`mailto:${AUTHOR.email}`}>email</a>.
+        I am also on <a href={AUTHOR.linkedin}>LinkedIn</a> and write on
+        <a href={AUTHOR.medium}>Medium</a>.
+      </p>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-8);
+    align-items: start;
+    margin-bottom: var(--space-6);
+  }
+  .header-text { min-width: 0; }
+  .header-photo :global(img) {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    filter: grayscale(0.1);
+    display: block;
+  }
+  .lede {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    line-height: 1.5;
+    color: var(--text);
+    margin-bottom: 0;
+  }
+  @media (max-width: 600px) {
+    .header {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+    .header-photo {
+      order: -1;
+    }
+    .header-photo :global(img) {
+      width: 140px;
+      height: 140px;
+    }
+  }
+</style>

@@ -1,0 +1,76 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+type Props = CollectionEntry<'work'>['data'];
+
+const { title, subtitle, role, context, stack, summary } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={summary} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <article>
+        <p class="eyebrow">Selected work · {context}</p>
+        <h1>{title}</h1>
+        <p class="subtitle">{subtitle}</p>
+
+        <div class="meta">
+          <div><span>Role</span><p>{role}</p></div>
+          <div><span>Stack</span><p>{stack.join(' · ')}</p></div>
+        </div>
+
+        <hr class="rule" />
+
+        <div class="content">
+          <slot />
+        </div>
+
+        <hr class="rule" />
+
+        <p class="back"><a href="/work">← All work</a></p>
+      </article>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .subtitle {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    color: var(--muted);
+    line-height: 1.4;
+    margin-bottom: var(--space-8);
+  }
+  .meta {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--space-6);
+    margin-top: var(--space-6);
+    font-size: 0.9rem;
+  }
+  .meta span {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    display: block;
+    margin-bottom: var(--space-1);
+  }
+  .meta p { margin: 0; color: var(--text); }
+  .back { color: var(--muted); margin-top: var(--space-8); }
+  .back a { color: var(--muted); text-decoration: none; }
+  .back a:hover { color: var(--accent); }
+
+  @media (max-width: 500px) {
+    .meta { grid-template-columns: 1fr; gap: var(--space-3); }
+  }
+</style>

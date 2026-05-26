@@ -1,0 +1,83 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const work = (await getCollection('work', ({ data }) => data.published))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title="Work"
+      description="Selected case studies on cloud, reliability, and platform engineering at a Tier-1 East African bank."
+    />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <p class="eyebrow">Selected work</p>
+      <h1>Things I have built and led.</h1>
+      <p class="lede">
+        Four projects from the last few years. Each one tells a story
+        about reliability, automation, or governance — and what I learned
+        building it.
+      </p>
+
+      <hr class="rule" />
+
+      <ul class="work-list">
+        {
+          work.map((item) => (
+            <li>
+              <a href={`/work/${item.id}`}>
+                <h2>{item.data.title}</h2>
+                <p class="subtitle">{item.data.subtitle}</p>
+                <p class="summary">{item.data.summary}</p>
+                <p class="cta">Read case study →</p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .lede {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    line-height: 1.4;
+    color: var(--muted);
+    margin-bottom: var(--space-6);
+  }
+  .work-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .work-list li { margin-bottom: var(--space-12); }
+  .work-list a {
+    display: block;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .work-list h2 {
+    font-size: 1.35rem;
+    margin: 0 0 var(--space-2);
+    transition: color 0.15s ease;
+  }
+  .work-list a:hover h2 { color: var(--accent); }
+  .work-list .subtitle {
+    font-family: var(--serif);
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-bottom: var(--space-3);
+  }
+  .work-list .summary { margin-bottom: var(--space-3); }
+  .work-list .cta { color: var(--accent); font-size: 0.9rem; margin: 0; }
+</style>
