@@ -22,3 +22,13 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Terraform
+**/.terraform/
+*.tfvars
+*.tfvars.json
+crash.log
+crash.*.log
+# Note: bootstrap/terraform.tfstate IS committed by design (see infra/bootstrap/README.md)
+# Other terraform.tfstate files use the S3 remote backend and don't appear locally
+# .terraform.lock.hcl IS committed to lock provider versions
