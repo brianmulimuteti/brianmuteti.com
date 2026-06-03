@@ -21,6 +21,7 @@ env:
   AWS_REGION: us-east-1
   AWS_ROLE_ARN: arn:aws:iam::905418073694:role/github-deploy-brianmuteti-com
   SITE_BUCKET: brianmuteti-site
+  CLOUDFRONT_DISTRIBUTION_ID: E2GP0AWFEODVS4
   NODE_VERSION: '22'
 
 jobs:
@@ -80,12 +81,8 @@ jobs:
       # rather than waiting for the TTL to expire.
       - name: Invalidate CloudFront cache
         run: |
-          DIST_ID=$(aws cloudfront list-distributions \
-            --query "DistributionList.Items[?Aliases.Items[?contains(@, 'brianmuteti.com')] && !contains(Comment, 'redirect')].Id" \
-            --output text)
-          echo "Invalidating distribution: $DIST_ID"
           aws cloudfront create-invalidation \
-            --distribution-id "$DIST_ID" \
+            --distribution-id "${{ env.CLOUDFRONT_DISTRIBUTION_ID }}" \
             --paths '/*'
 
       - name: Summary
