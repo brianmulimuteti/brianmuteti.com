@@ -62,3 +62,20 @@ cost is approximately **\$1.50–3.00 USD**:
 - CloudFront: cents (free tier covers significant traffic)
 - ACM cert: free
 - DynamoDB state lock: cents
+
+## How deploys reach this infrastructure
+
+The deploy workflow lives at [`/.github/workflows/deploy.yml`](../../.github/workflows/deploy.yml).
+It runs on every push to `main` and can also be triggered manually from
+the Actions tab. The workflow:
+
+1. Builds the Astro site (`npm run build`)
+2. Assumes the `github-deploy-brianmuteti-com` role via OIDC — no static
+   AWS credentials anywhere
+3. Syncs the build output to S3 with split cache headers:
+   - immutable assets (CSS, JS, images): 1-year cache
+   - HTML: no cache, revalidate every request
+4. Creates a CloudFront invalidation on `/*` so the new content is served
+   immediately
+
+End-to-end deploy time: ~2–3 minutes.

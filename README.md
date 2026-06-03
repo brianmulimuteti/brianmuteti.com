@@ -10,8 +10,8 @@ A type-led, low-decoration site built around four engineering case studies. No t
 - **Content collections** — case studies as Markdown
 - **Fraunces + Inter + JetBrains Mono** — typography via Google Fonts
 - **AWS** — S3 (origin) + CloudFront (CDN) + ACM (TLS) + Route 53 (DNS)
-- **Terraform** — all infrastructure as code, see [`infra/`](./infra) *(coming soon)*
-- **GitHub Actions** — CI/CD deploy on push to `main` *(coming soon)*
+- **Terraform** — all infrastructure as code, see [`infra/`](./infra)
+- **GitHub Actions** — CI/CD deploy on push to `main`, see [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml)
 
 ## Local development
 

@@ -1,0 +1,94 @@
+name: Deploy to AWS
+
+# Trigger on push to main (real deploys) and manually from the Actions tab.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+# OIDC requires id-token: write. The workflow needs nothing else.
+permissions:
+  id-token: write
+  contents: read
+
+# If a newer push arrives while an older deploy is still running,
+# cancel the older one. No point shipping stale code.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  AWS_REGION: us-east-1
+  AWS_ROLE_ARN: arn:aws:iam::905418073694:role/github-deploy-brianmuteti-com
+  SITE_BUCKET: brianmuteti-site
+  NODE_VERSION: '20'
+
+jobs:
+  build-and-deploy:
+    name: Build and deploy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: github-deploy-${{ github.run_id }}
+
+      # Two-step sync for correct caching:
+      # Step 1: long-cache everything EXCEPT HTML files.
+      # Astro fingerprints CSS/JS with content hashes, so these
+      # can be cached for a year.
+      - name: Sync immutable assets to S3
+        run: |
+          aws s3 sync ./dist s3://${{ env.SITE_BUCKET }}/ \
+            --delete \
+            --exclude '*.html' \
+            --cache-control 'public, max-age=31536000, immutable'
+
+      # Step 2: short-cache the HTML files.
+      # These keep the same filename across deploys but content changes,
+      # so they must NOT be aggressively cached.
+      - name: Sync HTML to S3 with short cache
+        run: |
+          aws s3 sync ./dist s3://${{ env.SITE_BUCKET }}/ \
+            --delete \
+            --exclude '*' \
+            --include '*.html' \
+            --cache-control 'public, max-age=0, must-revalidate'
+
+      # Force CloudFront to fetch the new content immediately,
+      # rather than waiting for the TTL to expire.
+      - name: Invalidate CloudFront cache
+        run: |
+          DIST_ID=$(aws cloudfront list-distributions \
+            --query "DistributionList.Items[?Aliases.Items[?contains(@, 'brianmuteti.com')] && !contains(Comment, 'redirect')].Id" \
+            --output text)
+          echo "Invalidating distribution: $DIST_ID"
+          aws cloudfront create-invalidation \
+            --distribution-id "$DIST_ID" \
+            --paths '/*'
+
+      - name: Summary
+        run: |
+          echo "Deployed to https://brianmuteti.com"
+          echo "Bucket: s3://${{ env.SITE_BUCKET }}"
