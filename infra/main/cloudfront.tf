@@ -35,6 +35,11 @@ resource "aws_cloudfront_distribution" "site" {
 
     # AWS managed cache policy "CachingOptimized"
     cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.url_rewriter.arn
+    }
   }
 
   # Astro's 404.html lives at /404.html in the built output.
@@ -104,6 +109,46 @@ resource "aws_cloudfront_function" "www_redirect" {
     }
   EOT
 }
+
+# ============================================================
+# CloudFront Function — URL rewriter for S3 static site
+# Astro outputs /about/index.html, /work/foo/index.html, etc.
+# CloudFront forwards bare requests like /about straight to S3,
+# which returns 403 because the literal object doesn't exist.
+# This function rewrites those bare requests to /about/index.html
+# at the edge so S3 finds the right object.
+# ============================================================
+
+resource "aws_cloudfront_function" "url_rewriter" {
+  name    = "${replace(var.domain_name, ".", "-")}-url-rewriter"
+  runtime = "cloudfront-js-2.0"
+  comment = "Rewrite directory paths to index.html for ${var.domain_name}"
+  publish = true
+  code    = <<-EOT
+    function handler(event) {
+      var request = event.request;
+      var uri = request.uri;
+
+      // If URI ends with '/', append index.html
+      if (uri.endsWith('/')) {
+        request.uri += 'index.html';
+        return request;
+      }
+
+      // If URI has no file extension at all, treat it as a directory:
+      // /about      -> /about/index.html
+      // /work/foo   -> /work/foo/index.html
+      // Leave /favicon.svg, /sitemap-index.xml, etc. alone.
+      var lastSegment = uri.substring(uri.lastIndexOf('/') + 1);
+      if (lastSegment !== '' && lastSegment.indexOf('.') === -1) {
+        request.uri += '/index.html';
+      }
+
+      return request;
+    }
+  EOT
+}
+
 
 # ============================================================
 # CloudFront — www redirect distribution
