@@ -21,7 +21,7 @@ env:
   AWS_REGION: us-east-1
   AWS_ROLE_ARN: arn:aws:iam::905418073694:role/github-deploy-brianmuteti-com
   SITE_BUCKET: brianmuteti-site
-  NODE_VERSION: '20'
+  NODE_VERSION: '22'
 
 jobs:
   build-and-deploy:
