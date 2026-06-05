@@ -1,10 +1,10 @@
 ---
-import { Image } from 'astro:assets';
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { AUTHOR } from '../consts';
-import brianPhoto from '../assets/images/brian.jpg';
+import { Image } from "astro:assets";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { AUTHOR } from "../consts";
+import brianPhoto from "../assets/images/brian.jpg";
 ---
 
 <html lang="en">
@@ -23,9 +23,12 @@ import brianPhoto from '../assets/images/brian.jpg';
           <h1>How I think about engineering.</h1>
           <p class="lede">
             I build and operate production systems for organisations where
-            reliability is non-negotiable — banks, healthcare AI platforms,
-            energy. My work sits where deep technical engineering meets the
-            outcomes it enables: uptime, regulatory confidence, customer trust.
+            reliability is non-negotiable — healthcare AI platforms, financial
+            services, and critical infrastructure. My work sits at the
+            intersection of platform engineering, cloud architecture, and
+            operational excellence, translating technical decisions into
+            business outcomes: uptime, resilience, regulatory confidence, and
+            customer trust.
           </p>
         </div>
         <div class="header-photo">
@@ -41,55 +44,88 @@ import brianPhoto from '../assets/images/brian.jpg';
 
       <h2>Current</h2>
       <p>
-        I am currently at <strong>KCB Bank</strong> in Nairobi, working on
-        DevOps and Site Reliability Engineering across core banking
-        platforms.
+        I am currently Lead Site Reliability Engineer for Africa (Kenya Focus)
+        at <strong>Qure.ai</strong>
+        where I help operate, deploy and scale the ML systems that power AI-assisted
+        healthcare diagnostics across multiple countries.
+      </p>
+
+      <p>
+        My work spans reliability engineering, cloud infrastructure,
+        observability, automation, security, platform operations, and
+        operational excellence. I work closely with engineering and product
+        teams to ensure critical healthcare systems remain resilient,
+        observable, and scalable as adoption grows.
       </p>
 
       <h2>Background</h2>
       <p>
-        Before KCB I led Site Reliability Engineering for Africa at
-        <strong>Qure.ai</strong>, an AI-driven healthcare diagnostics platform with
-        multi-country deployments. Before that I was a DevOps and SRE
-        engineer at a Tier-1 East African bank, where I built much of
-        the work documented in <a href="/work">case studies</a>.
+        Before joining <strong>Qure.ai</strong>, I worked as a DevOps and Site
+        Reliability Engineer within one of East Africa's largest financial
+        institutions, supporting mission-critical banking and payments
+        platforms. Much of the work documented in my <a href="/work"
+          >case studies</a
+        > comes from that period.
+      </p>
+      <p>
+        Over the course of my career, I have worked across cloud architecture,
+        platform engineering, observability, incident response, automation, and
+        large-scale system modernisation. I am particularly interested in
+        building systems that remain simple to operate even as they grow in
+        complexity.
       </p>
       <p>
         I hold a BSc in Electrical and Electronics Engineering from the
-        Technical University of Mombasa, and I am a registered Graduate
-        Engineer with the Engineering Board of Kenya.
+        Technical University of Mombasa, and I am a registered Graduate Engineer
+        with the Engineering Board of Kenya.
       </p>
 
       <h2>How I work</h2>
       <p>
-        I treat reliability as a business outcome, not a technical
-        metric. The systems I build are observable, fault-tolerant,
-        and designed for the engineers who operate them — not just the
-        ones who built them. I lead with documentation, runbooks, and
-        post-incident learning. I mentor.
+        I view reliability as a business outcome rather than a technical metric.
+        The systems I build are observable, fault-tolerant, and designed for the
+        engineers who operate them—not just the engineers who build them.
       </p>
       <p>
-        Outside of full-time engineering, I serve as Head of Operations
-        for the Association of Energy Professionals in Eastern Africa.
+        I place a strong emphasis on automation, documentation, operational
+        readiness, and post-incident learning. Whether responding to a
+        production incident, designing a platform, or leading a migration, my
+        goal is the same: leave the system and the team in a better state than I
+        found them.
+      </p>
+      <p>
+        I believe engineering leadership is earned through ownership, clear
+        communication, and consistency during high-pressure situations.
+      </p>
+
+      <h2>Beyond Engineering</h2>
+
+      <p>
+        Outside of my full-time role, I have served as Head of Operations for
+        the Association of Energy Professionals in Eastern Africa (AEPEA) for
+        over two years, where I supported operational initiatives, technology
+        programmes, and organisational growth.
       </p>
 
       <h2>Certifications</h2>
       <ul>
-        <li>AWS Certified DevOps Engineer — Professional (DOP-C02)</li>
-        <li>AWS Certified Solutions Architect — Associate (SAA-C03)</li>
-        <li>
-          AWS Cloud Quest badges: Generative AI Architect, Solutions
-          Architect, Cloud Practitioner, Amazon Connect Fundamentals
-        </li>
+        <li>AWS Certified DevOps Engineer – Professional (DOP-C02)</li>
+        <li>AWS Certified Solutions Architect – Associate (SAA-C03)</li>
+        <li>AWS Cloud Quest: Generative AI Architect</li>
+        <li>AWS Cloud Quest: Solutions Architect</li>
+        <li>AWS Cloud Quest: Cloud Practitioner</li>
+        <li>AWS Cloud Quest: Amazon Connect Fundamentals</li>
         <li>Google Data Analytics Professional Certificate</li>
         <li>Google Project Management Professional Certificate</li>
       </ul>
 
       <h2>Get in touch</h2>
       <p>
-        The best way to reach me is by <a href={`mailto:${AUTHOR.email}`}>email</a>.
-        I am also on <a href={AUTHOR.linkedin}>LinkedIn</a> and write on
-        <a href={AUTHOR.medium}>Medium</a>.
+        The best way to reach me is by <a href={`mailto:${AUTHOR.email}`}
+          >email</a
+        >. I am also active on <a href={AUTHOR.linkedin}>LinkedIn</a> and occasionally
+        write on <a href={AUTHOR.medium}>Medium</a> about cloud engineering, reliability,
+        platform operations, and emerging technologies.
       </p>
     </main>
     <Footer />
@@ -104,7 +140,9 @@ import brianPhoto from '../assets/images/brian.jpg';
     align-items: start;
     margin-bottom: var(--space-6);
   }
-  .header-text { min-width: 0; }
+  .header-text {
+    min-width: 0;
+  }
   .header-photo :global(img) {
     width: 180px;
     height: 180px;
