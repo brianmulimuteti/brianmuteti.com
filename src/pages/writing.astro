@@ -3,13 +3,21 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { AUTHOR } from "../consts";
+import { ARTICLES } from "../data/writing";
+
+const monthYear = (isoDate: string) =>
+  new Date(isoDate).toLocaleDateString("en-GB", {
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
 ---
 
 <html lang="en">
   <head>
     <BaseHead
       title="Writing"
-      description="Articles on cloud, DevOps, and lessons from production incidents."
+      description="Articles on cloud architecture, alerting, and modernising production systems."
     />
   </head>
   <body>
@@ -19,16 +27,33 @@ import { AUTHOR } from "../consts";
       <h1>Notes on cloud, DevOps, and what production actually teaches you.</h1>
 
       <p class="lede">
-        I write occasionally about engineering — usually lessons from production
-        incidents, reliability challenges, or design decisions that had real
-        operational consequences. Articles live on
-        <a href={AUTHOR.medium}>Medium</a> for now.
+        I write occasionally about cloud architecture and operations: alerting,
+        modernising legacy systems, and platforms I have built on AWS. The
+        articles are published on <a href={AUTHOR.medium}>Medium</a>.
       </p>
 
       <hr class="rule" />
 
-      <p>
-        Visit my <a href={AUTHOR.medium}>Medium profile</a> for the full archive.
+      <ul class="articles">
+        {
+          ARTICLES.map((article) => (
+            <li>
+              <a href={article.url}>
+                <p class="date">
+                  <time datetime={article.date}>{monthYear(article.date)}</time>
+                </p>
+                <h2>{article.title}</h2>
+                <p class="summary">{article.summary}</p>
+                <p class="cta">Read on Medium <span aria-hidden="true">→</span></p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="archive">
+        The full archive, and anything newer, is on my
+        <a href={AUTHOR.medium}>Medium profile</a>.
       </p>
     </main>
     <Footer />
@@ -43,4 +68,32 @@ import { AUTHOR } from "../consts";
     color: var(--muted);
     margin-bottom: var(--space-6);
   }
+  .articles {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .articles li { margin-bottom: var(--space-12); }
+  .articles a {
+    display: block;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .articles .date {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 var(--space-2);
+  }
+  .articles h2 {
+    font-size: 1.3rem;
+    margin: 0 0 var(--space-2);
+    transition: color 0.15s ease;
+  }
+  .articles a:hover h2 { color: var(--accent); }
+  .articles .summary { margin-bottom: var(--space-3); }
+  .articles .cta { color: var(--accent); font-size: 0.9rem; margin: 0; }
+  .archive { color: var(--muted); }
 </style>
