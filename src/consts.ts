@@ -3,7 +3,7 @@
 
 export const SITE_TITLE = 'Brian Muli Muteti';
 export const SITE_DESCRIPTION =
-  'Senior DevOps & Site Reliability Engineer. I build production systems that don\u2019t go down \u2014 and lead the teams that keep them running.';
+  'Senior DevOps & Site Reliability Engineer. I build production systems that don\u2019t go down \u2014 and make sure every change reaches them safely.';
 export const SITE_URL = 'https://brianmuteti.com';
 export const SITE_OG_IMAGE = '/og-image.png';
 
