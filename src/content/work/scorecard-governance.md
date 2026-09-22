@@ -3,7 +3,7 @@ title: "Scorecard Governance Platform"
 subtitle: "A multi-tenant maker-checker platform for production banking data across six country subsidiaries"
 summary: "Built solo end-to-end: a maker-checker platform enforcing four-eyes governance for production scorecard changes, with immutable audit trails, automatic SLA expiry, and controlled rollback."
 role: "Sole engineer — architecture, backend, frontend, scheduler, security, handover"
-context: "A Tier-1 East African bank"
+context: "A Tier-1 East African bank, 2024–2026"
 stack:
   - "Java 21"
   - "Spring Boot 4"

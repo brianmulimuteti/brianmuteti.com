@@ -3,7 +3,7 @@ title: "Restoring a National Payments Service During a High-Impact Outage"
 subtitle: "Incident leadership during a high-impact outage on a national interbank payments rail"
 summary: "Led the response on an outage affecting bank-to-bank transfers — log forensics, root-cause isolation, emergency rollback, and a hotfix — while keeping stakeholders informed throughout."
 role: "Incident lead — diagnosis, decision, rollback, post-incident review"
-context: "A Tier-1 East African bank"
+context: "A Tier-1 East African bank, 2024–2026"
 stack:
   - "Java / Spring Boot"
   - "Elastic Stack"

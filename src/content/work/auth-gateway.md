@@ -3,7 +3,7 @@ title: "Modernising a Multi-Country Customer Authentication Gateway"
 subtitle: "Zero-downtime modernisation of a legacy authentication gateway across six country deployments"
 summary: "Replaced a legacy Java authentication gateway with a modernised Spring Boot service, including an email-fallback path, deployed in sequence across six country subsidiaries with zero customer downtime."
 role: "Engineering lead — design, rollout sequencing, cutover, post-rollout monitoring"
-context: "A Tier-1 East African bank"
+context: "A Tier-1 East African bank, 2024–2026"
 stack:
   - "Java"
   - "Spring Boot"

@@ -3,7 +3,7 @@ title: "Centralised Observability for Core Banking Systems"
 subtitle: "An Elastic Stack platform that cut incident MTTR by ~90% across three mission-critical banking systems"
 summary: "Designed and rolled out a centralised observability platform — metrics, logs, uptime — spanning the bank's core systems, replacing fragmented per-system tooling with a single operational view."
 role: "Tech lead — architecture, rollout, dashboards, handover to operations"
-context: "A Tier-1 East African bank"
+context: "A Tier-1 East African bank, 2024–2026"
 stack:
   - "Elasticsearch"
   - "Logstash"
