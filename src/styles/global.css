@@ -72,6 +72,7 @@ h1, h2, h3, h4 {
   line-height: 1.2;
   color: var(--text);
   letter-spacing: -0.01em;
+  text-wrap: balance;
 }
 
 h1 {
@@ -94,6 +95,7 @@ h3 {
 
 p {
   margin-bottom: var(--space-4);
+  text-wrap: pretty;
 }
 
 p + p {
@@ -104,12 +106,23 @@ a {
   color: var(--accent);
   text-decoration: underline;
   text-decoration-thickness: 1px;
+  text-decoration-color: rgba(31, 58, 95, 0.4);
   text-underline-offset: 3px;
-  transition: color 0.15s ease;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
 }
 
 a:hover {
   color: var(--accent-hover);
+  text-decoration-color: currentColor;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: rgba(31, 58, 95, 0.16);
 }
 
 ul, ol {
@@ -118,6 +131,7 @@ ul, ol {
 
 li {
   margin-bottom: var(--space-2);
+  text-wrap: pretty;
 }
 
 blockquote {
