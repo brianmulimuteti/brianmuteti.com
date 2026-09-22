@@ -30,22 +30,29 @@ npm run preview     # serve the build locally
 ```
 
 ## Structure
+
+```text
 src/
-├── assets/images/       photos used in pages
-├── components/          BaseHead, Header, Footer
+├── assets/images/          photos used in pages
+├── components/             BaseHead, Header, Footer
 ├── content/
-│   └── work/            case studies (Markdown)
+│   └── work/               case studies (Markdown)
+├── data/
+│   └── writing.ts          Medium articles listed on /writing
 ├── layouts/
-│   └── BlogPost.astro   case study layout
+│   └── BlogPost.astro      case study layout
 ├── pages/
-│   ├── index.astro      homepage
+│   ├── index.astro         homepage
 │   ├── about.astro
 │   ├── writing.astro
+│   ├── 404.astro           served by CloudFront for missing pages
 │   └── work/
 │       ├── index.astro     /work
 │       └── [...slug].astro /work/{slug}
-└── styles/
-└── global.css
+├── styles/
+│   └── global.css
+└── consts.ts               site title, description, author links
+```
 
 ## Deployment
 
