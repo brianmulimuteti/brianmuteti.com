@@ -3,18 +3,32 @@ import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('work', ({ data }) => data.published);
-  return posts.map((post) => ({
-    params: { slug: post.id },
-    props: post,
-  }));
+  const posts = (await getCollection('work', ({ data }) => data.published))
+    .sort((a, b) => a.data.order - b.data.order);
+  return posts.map((post, i) => {
+    // Wraps around, so the last case study points back to the first.
+    const next = posts.length > 1 ? posts[(i + 1) % posts.length] : undefined;
+    return {
+      params: { slug: post.id },
+      props: { post, next: next && { id: next.id, title: next.data.title } },
+    };
+  });
 }
-type Props = CollectionEntry<'work'>;
 
-const post = Astro.props;
+type Props = {
+  post: CollectionEntry<'work'>;
+  next?: { id: string; title: string };
+};
+
+const { post, next } = Astro.props;
 const { Content } = await render(post);
+
+// ~220 words a minute; count only tokens with letters or digits, so
+// Markdown syntax like "##" and ">" doesn't inflate the estimate.
+const words = (post.body ?? '').split(/\s+/).filter((w) => /[\p{L}\p{N}]/u.test(w)).length;
+const readingMinutes = Math.max(1, Math.ceil(words / 220));
 ---
 
-<BlogPost {...post.data}>
+<BlogPost {...post.data} readingMinutes={readingMinutes} next={next}>
   <Content />
 </BlogPost>
