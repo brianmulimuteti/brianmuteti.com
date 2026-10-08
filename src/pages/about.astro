@@ -72,6 +72,21 @@ import brianPhoto from "../assets/images/brian.jpg";
         that fit what they actually run.
       </p>
 
+      <p>
+        About two months in, the bank's internal dependency repository was
+        taking more requests than it should, and the build logs traced them to
+        CI rather than to any application: a pipeline that fails or is
+        cancelled never saves its dependency cache, so every rerun downloads
+        the whole dependency tree again — thousands of requests, where a
+        cached build needs almost none. Rather than stand up a separate
+        dependency cache that would itself need securing and auditing, I kept
+        the fix inside the build: a change to the shared Maven template,
+        tested on healthy and failing pipelines, then rolled out to hundreds
+        of Azure DevOps pipelines without touching application code. Cached
+        builds now make no repository requests at all, and the root-cause
+        write-up ranks the failing pipelines to fix first.
+      </p>
+
       <h2>Background</h2>
       <p>
         Before joining KCB, I was Lead Site Reliability Engineer for Africa at
